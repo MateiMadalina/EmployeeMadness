@@ -101,3 +101,33 @@ button {
 .grow {
   flex: 1;
 }
+
+
+input{
+  /* margin:1em 0em; */
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  border: solid rgb(12, 81, 178);
+  border-radius: 5px;
+}
+
+select{
+  margin:1em 4em;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  border: solid rgb(12, 81, 178);
+  border-radius: 5px;
+}
+
+option {
+background-color: rgb(99, 151, 254);
+color:white;
+}
+
+.div-search{
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
