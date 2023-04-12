@@ -18,6 +18,8 @@ const EmployeeList = () => {
   const [inputText, setInputText] = useState("");
   const [copyEmployees, setCopyEmployees] = useState(null);
 
+  console.log(employees);
+
   const handleDelete = (id) => {
     deleteEmployee(id);
 

@@ -1,48 +1,49 @@
-const EmployeeForm = ({ onSave, disabled, employee, onCancel }) => {
+const EquipmentForm = ({ onSave, disabled, equipment, onCancel }) => {
+  console.log(equipment);
   const onSubmit = (e) => {
     e.preventDefault();
     const formData = new FormData(e.target);
     const entries = [...formData.entries()];
 
-    const employee = entries.reduce((acc, entry) => {
+    const equipment = entries.reduce((acc, entry) => {
       const [k, v] = entry;
       acc[k] = v;
       return acc;
     }, {});
 
-    return onSave(employee);
+    return onSave(equipment);
   };
 
   return (
     <form className="EmployeeForm" onSubmit={onSubmit}>
-      {employee && (
-        <input type="hidden" name="_id" defaultValue={employee._id} />
+      {equipment && (
+        <input type="hidden" name="_id" defaultValue={equipment._id} />
       )}
 
       <div className="control">
         <label htmlFor="name">Name:</label>
         <input
-          defaultValue={employee ? employee.name : null}
+          defaultValue={equipment ? equipment.name : null}
           name="name"
           id="name"
         />
       </div>
 
       <div className="control">
-        <label htmlFor="level">Level:</label>
+        <label htmlFor="level">Type:</label>
         <input
-          defaultValue={employee ? employee.level : null}
-          name="level"
-          id="level"
+          defaultValue={equipment ? equipment.type : null}
+          name="type"
+          id="type"
         />
       </div>
 
       <div className="control">
-        <label htmlFor="position">Position:</label>
+        <label htmlFor="position">Amount:</label>
         <input
-          defaultValue={employee ? employee.position : null}
-          name="position"
-          id="position"
+          defaultValue={equipment ? equipment.amount : null}
+          name="amount"
+          id="amount"
         />
       </div>
 
@@ -50,7 +51,7 @@ const EmployeeForm = ({ onSave, disabled, employee, onCancel }) => {
 
       <div className="buttons">
         <button type="submit" disabled={disabled}>
-          {employee ? "Update Employee" : "Create Employee"}
+          {equipment ? "Update Equipment" : "Create Equipment"}
         </button>
 
         <button type="button" onClick={onCancel}>
@@ -61,4 +62,4 @@ const EmployeeForm = ({ onSave, disabled, employee, onCancel }) => {
   );
 };
 
-export default EmployeeForm;
+export default EquipmentForm;
