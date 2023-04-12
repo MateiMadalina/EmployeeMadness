@@ -22,7 +22,7 @@ app.route("/api/equipments/")
 })
 .post(async (req,res,next) => {
   const equipment = req.body;
-  console.log(equipment);
+ 
   try {
     const saved = await EquipmentModel.create(equipment);
     return res.json(saved);

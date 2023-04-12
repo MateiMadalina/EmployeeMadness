@@ -1,4 +1,5 @@
-const EmployeeForm = ({ onSave, disabled, employee, onCancel }) => {
+const EmployeeForm = ({ onSave, disabled, employee, onCancel,equipments }) => {
+  console.log(equipments);
   const onSubmit = (e) => {
     e.preventDefault();
     const formData = new FormData(e.target);
@@ -9,6 +10,11 @@ const EmployeeForm = ({ onSave, disabled, employee, onCancel }) => {
       acc[k] = v;
       return acc;
     }, {});
+
+      const equipSelect = e.target.elements.equipments;
+      const equipOption = equipSelect.options[equipSelect.selectedIndex];
+      const equipValue = equipOption.value;
+      employee.equipment = equipValue;
 
     return onSave(employee);
   };
@@ -44,6 +50,26 @@ const EmployeeForm = ({ onSave, disabled, employee, onCancel }) => {
           name="position"
           id="position"
         />
+      </div>
+
+      <div className="control">
+        <label htmlFor="position">Equipment:</label>
+
+        <select
+          defaultValue={employee ? employee.equipment : null}
+          name="equipments"
+          >
+          <option
+          value={employee.equipment}
+          key={employee.equipment}
+          >
+            {employee && equipments ? equipments.find(equipment => equipment._id === employee.equipment).name : null}
+          </option>
+
+          {equipments?.filter(eq => eq._id !== employee.equipment).map(equipment => (
+            <option value={equipment._id} key={equipment._id}>{equipment.name}</option>
+          ))}
+        </select>
       </div>
 
 

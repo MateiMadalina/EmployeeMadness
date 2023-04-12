@@ -31,6 +31,8 @@ const EmployeeUpdater = () => {
   const [employeeLoading, setEmployeeLoading] = useState(true);
   const [equipments, setEquipments] = useState(null);
 
+  console.log(employee);
+
   useEffect(() => {
     setEmployeeLoading(true);
     fetchEmployee(id)
@@ -64,6 +66,7 @@ const EmployeeUpdater = () => {
   return (
     <EmployeeForm
       employee={employee}
+      equipments={equipments}
       onSave={handleUpdateEmployee}
       disabled={updateLoading}
       onCancel={() => navigate("/")}
