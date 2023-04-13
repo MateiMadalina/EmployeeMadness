@@ -1,11 +1,11 @@
-import "./AbsentTable.css";
+import "./SearchTable.css";
 
-const AbsentTable = ({ employees, onClick}) => (
+const SearchTable = ({ employees}) => (
+console.log(employees),
   <div className="EmployeeTable">
     <table>
       <thead>
         <tr>
-          <th>Present</th>
           <th>Name</th>
           <th>Level</th>
           <th>Position</th>
@@ -16,7 +16,6 @@ const AbsentTable = ({ employees, onClick}) => (
         {employees.map((employee) => (
           console.log(employee),
           <tr key={employee._id}>
-            <td><input onClick={() => onClick(employee)} type="checkbox" defaultChecked={employee.present} /></td>
             <td>{employee.name}</td>
             <td>{employee.level}</td>
             <td>{employee.position}</td>
@@ -27,4 +26,4 @@ const AbsentTable = ({ employees, onClick}) => (
   </div>
 );
 
-export default AbsentTable;
+export default SearchTable;

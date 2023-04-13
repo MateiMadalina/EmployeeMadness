@@ -12,6 +12,10 @@ const EmployeeSchema = new Schema({
     type: mongoose.Schema.Types.ObjectId,
     ref: "Equipments"
   },
+  brand: {
+    type: mongoose.Schema.Types.ObjectId,
+    ref: "Brands"
+  },
   created: {
     type: Date,
     default: Date.now,

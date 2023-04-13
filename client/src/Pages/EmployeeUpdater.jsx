@@ -18,6 +18,10 @@ const fetchEquipments = async () => {
   return fetch(`/api/equipments/`).then((res) => res.json());
 };
 
+const fetchBrands = async () => {
+  return fetch(`/api/brands/`).then((res) => res.json());
+};
+
 const fetchEmployee = async (id) => {
   return fetch(`/api/employees/${id}`).then((res) => res.json());
 };
@@ -30,8 +34,7 @@ const EmployeeUpdater = () => {
   const [updateLoading, setUpdateLoading] = useState(false);
   const [employeeLoading, setEmployeeLoading] = useState(true);
   const [equipments, setEquipments] = useState(null);
-
-  console.log(employee);
+  const [brands, setBrands] = useState(null);
 
   useEffect(() => {
     setEmployeeLoading(true);
@@ -43,6 +46,14 @@ const EmployeeUpdater = () => {
       fetchEquipments()
       .then((equipments) => {
         setEquipments(equipments);
+        setEmployeeLoading(false);
+      })
+      .catch((error) => {
+        throw error;
+      });
+      fetchBrands()
+      .then((brands) => {
+        setBrands(brands);
         setEmployeeLoading(false);
       })
       .catch((error) => {
@@ -67,6 +78,7 @@ const EmployeeUpdater = () => {
     <EmployeeForm
       employee={employee}
       equipments={equipments}
+      brands={brands}
       onSave={handleUpdateEmployee}
       disabled={updateLoading}
       onCancel={() => navigate("/")}

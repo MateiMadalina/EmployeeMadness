@@ -3,6 +3,7 @@ const express = require("express");
 const mongoose = require("mongoose");
 const EmployeeModel = require("./db/employee.model");
 const EquipmentModel = require("./db/equipments.model");
+const BrandModel = require("./db/brands.model");
 
 const { MONGO_URL, PORT = 8080 } = process.env;
 
@@ -59,6 +60,12 @@ app.route("/api/equipments/:id")
   }
 });
 
+app.route("/api/brands/")
+.get(async (req, res) => {
+  const brands = await BrandModel.find().sort({ created: "desc" });
+  return res.json(brands);
+})
+
 
 app.route("/api/absent/")
 .get(async (req, res) => {
@@ -69,7 +76,7 @@ app.route("/api/absent/")
 app.route("/api/employees/")
 .get(async (req, res) => {
   const employees = await EmployeeModel.find()
-  .populate("equipment")
+  .populate("equipment brand")
   .sort({ created: "desc" });
   return res.json(employees);
 })

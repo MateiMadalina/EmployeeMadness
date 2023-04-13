@@ -17,6 +17,7 @@ import AbsentList from "./Pages/AbsentList";
 import "./index.css";
 import TableTest from "./Pages/TableTest";
 import FormTest from "./Pages/FormTest";
+import SearchEmployee from "./Pages/SearchEmployees";
 
 
 const router = createBrowserRouter([
@@ -61,6 +62,11 @@ const router = createBrowserRouter([
         path: "/missing ",
         element: <AbsentList />,
       },
+      {
+        path: "/search/:name",
+        element: <SearchEmployee />,
+      },
+
 
     ],
   },

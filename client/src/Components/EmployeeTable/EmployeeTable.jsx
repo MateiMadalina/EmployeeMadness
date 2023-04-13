@@ -12,6 +12,7 @@ const EmployeeTable = ({ employees, onClick, onDelete }) => (
           <th>Level</th>
           <th>Position</th>
           <th>Equipment</th>
+          <th>Brand</th>
           <th />
         </tr>
       </thead>
@@ -24,6 +25,7 @@ const EmployeeTable = ({ employees, onClick, onDelete }) => (
             <td>{employee.level}</td>
             <td>{employee.position}</td>
             <td>{employee.equipment.name}</td>
+            <td>{employee.brand.name}</td>
             <td>
               <Link to={`/update/${employee._id}`}>
                 <button type="button">Update</button>
