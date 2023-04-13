@@ -18,7 +18,6 @@ const EquipmentList = () => {
   const [copyEquipments, setCopyEquipments] = useState(null);
 
 
-
   const handleDelete = (id) => {
     deleteEquipment(id);
 

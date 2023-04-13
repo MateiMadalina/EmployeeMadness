@@ -113,6 +113,14 @@ app.route("/api/employees/:id")
   }
 });
 
+app.route("/employees/:name")
+.get(async (req, res) => {
+  console.log(req.params.name);
+  const name = req.params.name;
+  const employees = await EmployeeModel.find({name: {$regex:new RegExp(name,"i")}});
+  return res.json(employees);
+});
+
 const main = async () => {
   await mongoose.connect(MONGO_URL);
 

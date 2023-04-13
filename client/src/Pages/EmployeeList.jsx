@@ -28,6 +28,20 @@ const EmployeeList = () => {
   const [employees, setEmployees] = useState(null);
   const [inputText, setInputText] = useState("");
   const [copyEmployees, setCopyEmployees] = useState(null);
+  const [page, setPage] = useState(1);
+
+  const incrementPage = () => {
+    if (page * 10 >= employees.length) return;
+    setPage(page + 1);
+  };
+
+  const decrementingPage = () => {
+    if (page > 1) {
+      setPage(page - 1);
+    }
+  };
+
+
 
   const handleDelete = (id) => {
     deleteEmployee(id);
@@ -103,9 +117,14 @@ const EmployeeList = () => {
         />
       </div> 
       <EmployeeTable
-       employees={employees}
+       employees={employees.slice((page - 1) * 10, page * 10)}
        onClick={updatePresent}
        onDelete={handleDelete} />
+      <div className="pagination-btns">
+        <button onClick={decrementingPage} className="btns-prev">Prev</button>
+        <p>{page}</p>
+        <button onClick={incrementPage} className="btns-prev">Next</button>
+      </div>
     </div>
   ); 
 };
