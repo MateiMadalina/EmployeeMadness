@@ -60,6 +60,12 @@ app.route("/api/equipments/:id")
 });
 
 
+app.route("/api/absent/")
+.get(async (req, res) => {
+  const equipments = await EmployeeModel.find({present:false}).sort({ created: "desc" });
+  return res.json(equipments);
+})
+
 app.route("/api/employees/")
 .get(async (req, res) => {
   const employees = await EmployeeModel.find()

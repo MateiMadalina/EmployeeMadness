@@ -7,6 +7,7 @@ const EmployeeSchema = new Schema({
   name: String,
   level: String,
   position: String,
+  present:Boolean,
   equipment: {
     type: mongoose.Schema.Types.ObjectId,
     ref: "Equipments"

@@ -11,6 +11,7 @@ import EmployeeUpdater from "./Pages/EmployeeUpdater";
 import EquipmentCreator from "./Pages/EquipmentCreator";
 import EquipmentList from "./Pages/EquipmentList";
 import EquipmentUpdater from "./Pages/EquipmentUpdater";
+import AbsentList from "./Pages/AbsentList";
 
 
 import "./index.css";
@@ -55,6 +56,10 @@ const router = createBrowserRouter([
       {
         path: "/equipment/update/:id",
         element: <EquipmentUpdater />,
+      },
+      {
+        path: "/missing ",
+        element: <AbsentList />,
       },
 
     ],

@@ -52,13 +52,14 @@ const EmployeeForm = ({ onSave, disabled, employee, onCancel,equipments }) => {
         />
       </div>
 
+     {equipments && employee ? 
       <div className="control">
         <label htmlFor="position">Equipment:</label>
-
+        
         <select
           defaultValue={employee ? employee.equipment : null}
           name="equipments"
-          >
+        >
           <option
           value={employee.equipment}
           key={employee.equipment}
@@ -71,6 +72,26 @@ const EmployeeForm = ({ onSave, disabled, employee, onCancel,equipments }) => {
           ))}
         </select>
       </div>
+      :
+      <div className="control">
+        <label htmlFor="position">Equipment:</label>
+        
+        <select
+          name="equipments"
+        >
+          <option
+          value="Select an equipment"
+          hidden
+          >
+            Select an equipment
+          </option>
+
+          {equipments?.map(equipment => (
+            <option value={equipment._id} key={equipment._id}>{equipment.name}</option>
+          ))}
+        </select>
+      </div>
+      }
 
 
 

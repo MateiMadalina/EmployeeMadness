@@ -1,7 +1,7 @@
 import { Link } from "react-router-dom";
-import "./EmployeeTable.css";
+import "./AbsentTable.css";
 
-const EmployeeTable = ({ employees, onClick, onDelete }) => (
+const AbsentTable = ({ employees, onClick}) => (
 
   <div className="EmployeeTable">
     <table>
@@ -11,7 +11,6 @@ const EmployeeTable = ({ employees, onClick, onDelete }) => (
           <th>Name</th>
           <th>Level</th>
           <th>Position</th>
-          <th>Equipment</th>
           <th />
         </tr>
       </thead>
@@ -23,16 +22,6 @@ const EmployeeTable = ({ employees, onClick, onDelete }) => (
             <td>{employee.name}</td>
             <td>{employee.level}</td>
             <td>{employee.position}</td>
-            <td>{employee.equipment.name}</td>
-            <td>
-              <Link to={`/update/${employee._id}`}>
-                <button type="button">Update</button>
-              </Link>
-              <button type="button" onClick={() => onDelete(employee._id)}>
-                Delete
-              </button>
-            </td>
-
           </tr>
         ))}
       </tbody>
@@ -40,4 +29,4 @@ const EmployeeTable = ({ employees, onClick, onDelete }) => (
   </div>
 );
 
-export default EmployeeTable;
+export default AbsentTable;

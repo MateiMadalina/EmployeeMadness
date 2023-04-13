@@ -12,13 +12,22 @@ const deleteEmployee = async (id) => {
   );
 };
 
+const updatePresent = async (employee) => {
+  employee.present = employee.present ? false : true;
+  return fetch(`/api/employees/${employee._id}`, {
+    method: "PATCH",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify(employee),
+  }).then((res) => res.json());
+};
+
 const EmployeeList = () => {
   const [loading, setLoading] = useState(true);
   const [employees, setEmployees] = useState(null);
   const [inputText, setInputText] = useState("");
   const [copyEmployees, setCopyEmployees] = useState(null);
-
-  console.log(employees);
 
   const handleDelete = (id) => {
     deleteEmployee(id);
@@ -46,7 +55,8 @@ const EmployeeList = () => {
     const searchTerm = e.target.value.toLowerCase();
     const filteredEmployees = copyEmployees.filter((empl) =>
       empl.level.toLowerCase().includes(searchTerm) ||
-      empl.position.toLowerCase().includes(searchTerm)
+      empl.position.toLowerCase().includes(searchTerm) ||
+      empl.name.toLowerCase().includes(searchTerm)
     );
     setEmployees(filteredEmployees);
   };
@@ -92,7 +102,10 @@ const EmployeeList = () => {
         onChange={searchEmployee}
         />
       </div> 
-      <EmployeeTable employees={employees} onDelete={handleDelete} />;
+      <EmployeeTable
+       employees={employees}
+       onClick={updatePresent}
+       onDelete={handleDelete} />
     </div>
   ); 
 };
