@@ -93,7 +93,7 @@ console.log(brands);
 
           <select name="equipments">
             <option value="Select an equipment" hidden>
-              Select an equipment
+              Select equipment
             </option>
 
             {equipments?.map((equipment) => (
@@ -133,7 +133,7 @@ console.log(brands);
           <label htmlFor="position">Brand:</label>
           <select name="brands">
             <option value="Select an brand" hidden>
-              Select an brand
+              Select brand
             </option>
             {brands?.map((brand) => (
               console.log(brand),

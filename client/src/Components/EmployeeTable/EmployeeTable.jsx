@@ -1,14 +1,14 @@
 import { Link } from "react-router-dom";
 import "./EmployeeTable.css";
 
-const EmployeeTable = ({ employees, onClick, onDelete }) => (
+const EmployeeTable = ({ employees, onClick, onDelete, sort }) => (
 
   <div className="EmployeeTable">
     <table>
       <thead>
         <tr>
           <th>Present</th>
-          <th>Name</th>
+          <th onClick={() => sort()}>Name</th>
           <th>Level</th>
           <th>Position</th>
           <th>Equipment</th>
@@ -18,7 +18,6 @@ const EmployeeTable = ({ employees, onClick, onDelete }) => (
       </thead>
       <tbody>
         {employees.map((employee) => (
-          console.log(employee),
           <tr key={employee._id}>
             <td><input onClick={() => onClick(employee)} type="checkbox" defaultChecked={employee.present} /></td>
             <td>{employee.name}</td>

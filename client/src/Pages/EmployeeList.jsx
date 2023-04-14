@@ -29,6 +29,7 @@ const EmployeeList = () => {
   const [inputText, setInputText] = useState("");
   const [copyEmployees, setCopyEmployees] = useState(null);
   const [page, setPage] = useState(1);
+  const [index,setIndex] =useState(0);
 
   const incrementPage = () => {
     if (page * 10 >= employees.length) return;
@@ -97,6 +98,19 @@ const EmployeeList = () => {
       }));
     }
   }
+
+ 
+  const sortByName = () => {
+   if(index % 2 === 0 ){
+    setIndex(index + 1);
+    setEmployees((previous) =>
+    [...previous].sort((a, b) => a.name.localeCompare(b.name)))
+   } else {
+    setIndex(index + 1);
+     setEmployees((previous) =>
+     [...previous].sort((a, b) => b.name.localeCompare(a.name)))
+   }
+  }
   
   return(
     <div>
@@ -119,6 +133,7 @@ const EmployeeList = () => {
       <EmployeeTable
        employees={employees.slice((page - 1) * 10, page * 10)}
        onClick={updatePresent}
+       sort={sortByName}
        onDelete={handleDelete} />
       <div className="pagination-btns">
         <button onClick={decrementingPage} className="btns-prev">Prev</button>
