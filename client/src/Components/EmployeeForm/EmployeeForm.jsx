@@ -1,38 +1,20 @@
-const EmployeeForm = ({
-  onSave,
-  disabled,
-  employee,
-  onCancel,
-  equipments,
-  brands,
-}) => {
-console.log(brands);
+const EmployeeForm = ({ onSave, disabled, employee, onCancel, equipments, brands,}) => {
+
   const onSubmit = (e) => {
     e.preventDefault();
     const formData = new FormData(e.target);
     const entries = [...formData.entries()];
-
     const employee = entries.reduce((acc, entry) => {
       const [k, v] = entry;
       acc[k] = v;
       return acc;
     }, {});
-
-    const equipSelect = e.target.elements.equipments;
-    const equipOption = equipSelect.options[equipSelect.selectedIndex];
-    const equipValue = equipOption.value;
-    employee.equipment = equipValue;
-
-    const brandSelect = e.target.elements.brands;
-    const brandOption = brandSelect.options[brandSelect.selectedIndex];
-    const brandValue = brandOption.value;
-    employee.brand = brandValue;
-
     return onSave(employee);
   };
 
   return (
     <form className="EmployeeForm" onSubmit={onSubmit}>
+      
       {employee && (
         <input type="hidden" name="_id" defaultValue={employee._id} />
       )}
@@ -66,10 +48,10 @@ console.log(brands);
 
       {equipments && employee ? (
         <div className="control">
-          <label htmlFor="position">Equipment:</label>
+          <label htmlFor="equipment">Equipment:</label>
           <select
             defaultValue={employee ? employee.equipment : null}
-            name="equipments"
+            name="equipment"
           >
             <option value={employee.equipment} key={employee.equipment}>
               {employee && equipments
@@ -89,9 +71,9 @@ console.log(brands);
         </div>
       ) : (
         <div className="control">
-          <label htmlFor="position">Equipment:</label>
+          <label htmlFor="equipment">Equipment:</label>
 
-          <select name="equipments">
+          <select name="equipment" >
             <option value="Select an equipment" hidden>
               Select equipment
             </option>
@@ -107,10 +89,10 @@ console.log(brands);
 
       {brands && employee ? (
         <div className="control">
-          <label htmlFor="position">Brand:</label>
+          <label htmlFor="brand">Brand:</label>
           <select
             defaultValue={employee ? employee.brand : null}
-            name="brands"
+            name="brand"
           >
             <option value={employee.brand} key={employee.brand}>
               {employee && brands
@@ -130,8 +112,8 @@ console.log(brands);
         </div>
       ) : (
         <div className="control">
-          <label htmlFor="position">Brand:</label>
-          <select name="brands">
+          <label htmlFor="brand">Brand:</label>
+          <select name="brand">
             <option value="Select an brand" hidden>
               Select brand
             </option>
