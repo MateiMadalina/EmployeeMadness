@@ -13,6 +13,7 @@ const EmployeeTable = ({ employees, onClick, onDelete, sort }) => (
           <th>Position</th>
           <th>Equipment</th>
           <th>Brand</th>
+          <th>Favorite color</th>
           <th />
         </tr>
       </thead>
@@ -25,6 +26,7 @@ const EmployeeTable = ({ employees, onClick, onDelete, sort }) => (
             <td>{employee.position}</td>
             <td>{employee.equipment.name}</td>
             <td>{employee.brand.name}</td>
+            <td>{employee.color.name}</td>
             <td>
               <Link to={`/update/${employee._id}`}>
                 <button type="button">Update</button>

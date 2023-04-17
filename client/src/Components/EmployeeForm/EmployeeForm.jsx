@@ -1,5 +1,4 @@
-const EmployeeForm = ({ onSave, disabled, employee, onCancel, equipments, brands,}) => {
-
+const EmployeeForm = ({ onSave, disabled, employee, onCancel, equipments, brands, colors}) => {
   const onSubmit = (e) => {
     e.preventDefault();
     const formData = new FormData(e.target);
@@ -16,7 +15,6 @@ const EmployeeForm = ({ onSave, disabled, employee, onCancel, equipments, brands
 
   return (
     <form className="EmployeeForm" onSubmit={onSubmit}>
-      
       {employee && (
         <input type="hidden" name="_id" defaultValue={employee._id} />
       )}
@@ -75,7 +73,7 @@ const EmployeeForm = ({ onSave, disabled, employee, onCancel, equipments, brands
         <div className="control">
           <label htmlFor="equipment">Equipment:</label>
 
-          <select defaultValue="643867c5ce30b351e7d7cab1" name="equipment" >
+          <select defaultValue="643867c5ce30b351e7d7cab1" name="equipment">
             <option value="Select equipment" hidden>
               Select equipment
             </option>
@@ -92,15 +90,10 @@ const EmployeeForm = ({ onSave, disabled, employee, onCancel, equipments, brands
       {brands && employee ? (
         <div className="control">
           <label htmlFor="brand">Brand:</label>
-          <select
-            defaultValue={employee ? employee.brand : null}
-            name="brand"
-          >
+          <select defaultValue={employee ? employee.brand : null} name="brand">
             <option value={employee.brand} key={employee.brand}>
               {employee && brands
-                ? brands.find(
-                    (brand) => brand._id === employee.brand
-                  ).name
+                ? brands.find((brand) => brand._id === employee.brand).name
                 : null}
             </option>
             {brands
@@ -122,6 +115,40 @@ const EmployeeForm = ({ onSave, disabled, employee, onCancel, equipments, brands
             {brands?.map((brand) => (
               <option value={brand._id} key={brand._id}>
                 {brand.name}
+              </option>
+            ))}
+          </select>
+        </div>
+      )}
+
+      {colors && employee ? (
+        <div className="control">
+          <label htmlFor="color"> Favorite Color:</label>
+          <select defaultValue={employee ? employee.color : null} name="color">
+            <option value={employee.color} key={employee.color}>
+              {employee && colors
+                ? colors.find((color) => color._id === employee.color).name
+                : null}
+            </option>
+            {colors
+              ?.filter((elem) => elem._id !== employee.color)
+              .map((color) => (
+                <option value={color._id} key={color._id}>
+                  {color.name}
+                </option>
+              ))}
+          </select>
+        </div>
+      ) : (
+        <div className="control">
+          <label htmlFor="color">Favorite Color:</label>
+          <select defaultValue="Select color" name="color">
+            <option value="Select color" hidden>
+              Select Color
+            </option>
+            {colors?.map((color) => (
+              <option value={color._id} key={color._id}>
+                {color.name}
               </option>
             ))}
           </select>

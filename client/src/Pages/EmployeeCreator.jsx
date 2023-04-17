@@ -20,11 +20,16 @@ const fetchBrands = async () => {
   return fetch(`/api/brands/`).then((res) => res.json());
 };
 
+const fetchColors = async () => {
+  return fetch(`/api/colors/`).then((res) => res.json());
+}
+
 const EmployeeCreator = () => {
   const navigate = useNavigate();
   const [loading, setLoading] = useState(false);
   const [equipments,setEquipments] = useState(null);
   const [brands, setBrands] = useState(null);
+  const [colors, setColors] = useState(null);
 
   useEffect(() => {
     fetchEquipments()
@@ -37,6 +42,14 @@ const EmployeeCreator = () => {
     fetchBrands()
     .then((brands) => {
       setBrands(brands);
+    })
+    .catch((error) => {
+      throw error;
+    });
+    fetchColors()
+    .then((colors) => {
+      setColors(colors);
+      setLoading(false);
     })
     .catch((error) => {
       throw error;
@@ -60,6 +73,7 @@ const EmployeeCreator = () => {
       onSave={handleCreateEmployee}
       equipments={equipments}
       brands={brands}
+      colors={colors}
     />
   );
 };

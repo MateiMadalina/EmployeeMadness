@@ -16,6 +16,10 @@ const EmployeeSchema = new Schema({
     type: mongoose.Schema.Types.ObjectId,
     ref: "Brands"
   },
+  color: {
+    type: mongoose.Schema.Types.ObjectId,
+    ref: "Colors"
+  },
   created: {
     type: Date,
     default: Date.now,

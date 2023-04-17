@@ -5,6 +5,7 @@ const mongoose = require("mongoose");
 const EmployeeModel = require("./db/employee.model");
 const EquipmentModel = require("./db/equipments.model");
 const BrandModel = require("./db/brands.model");
+const ColorModel = require("./db/colors.model.js");
 
 const { MONGO_URL, PORT = 8080 } = process.env;
 
@@ -20,7 +21,7 @@ app.use(express.json());
 app.route("/api/employees/")
 .get(async (req, res) => {
   const employees = await EmployeeModel.find()
-  .populate("equipment brand")
+  .populate("equipment brand color")
   .sort({ created: "desc" });
   return res.json(employees);
 })
@@ -110,11 +111,19 @@ app.route("/api/equipments/:id")
 });
 
 
-//Brand Route
+//Brands Route:
 app.route("/api/brands/")
 .get(async (req, res) => {
   const brands = await BrandModel.find().sort({ created: "desc" });
   return res.json(brands);
+})
+
+
+//Colors Route:
+app.route("/api/colors/")
+.get(async (req, res) => {
+  const colors = await ColorModel.find().sort({ created: "desc" });
+  return res.json(colors);
 })
 
 

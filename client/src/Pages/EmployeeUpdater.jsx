@@ -21,9 +21,15 @@ const fetchBrands = async () => {
   return fetch(`/api/brands/`).then((res) => res.json());
 };
 
+const fetchColors = async () => {
+  return fetch(`/api/colors/`).then((res) => res.json());
+}
+
 const fetchEmployee = async (id) => {
   return fetch(`/api/employees/${id}`).then((res) => res.json());
 };
+
+
 
 const EmployeeUpdater = () => {
   const { id } = useParams();
@@ -35,6 +41,7 @@ const EmployeeUpdater = () => {
   const [employee, setEmployee] = useState(null);
   const [equipments, setEquipments] = useState(null);
   const [brands, setBrands] = useState(null);
+  const [colors, setColors] = useState(null);
 
   useEffect(() => {
     setLoading(true);
@@ -54,6 +61,14 @@ const EmployeeUpdater = () => {
       fetchBrands()
       .then((brands) => {
         setBrands(brands);
+        setLoading(false);
+      })
+      .catch((error) => {
+        throw error;
+      });
+      fetchColors()
+      .then((colors) => {
+        setColors(colors);
         setLoading(false);
       })
       .catch((error) => {
@@ -79,6 +94,7 @@ const EmployeeUpdater = () => {
       employee={employee}
       equipments={equipments}
       brands={brands}
+      colors={colors}
       onSave={handleUpdateEmployee}
       disabled={updateLoading}
       onCancel={() => navigate("/")}
