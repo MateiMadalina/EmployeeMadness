@@ -7,7 +7,6 @@ const fetchEmployees = async () => {
 };
 
 
-
 const AbsentList = () => {
   const [loading, setLoading] = useState(true);
   const [employees, setEmployees] = useState(null);

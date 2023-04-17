@@ -3,6 +3,7 @@ import ReactDOM from "react-dom/client";
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import reportWebVitals from "./reportWebVitals";
 
+//imports from Pages
 import Layout from "./Pages/Layout";
 import ErrorPage from "./Pages/ErrorPage";
 import EmployeeList from "./Pages/EmployeeList";
@@ -12,12 +13,12 @@ import EquipmentCreator from "./Pages/EquipmentCreator";
 import EquipmentList from "./Pages/EquipmentList";
 import EquipmentUpdater from "./Pages/EquipmentUpdater";
 import AbsentList from "./Pages/AbsentList";
-
-
-import "./index.css";
 import TableTest from "./Pages/TableTest";
 import FormTest from "./Pages/FormTest";
 import SearchEmployee from "./Pages/SearchEmployees";
+
+import "./index.css";
+
 
 
 const router = createBrowserRouter([

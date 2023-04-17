@@ -12,6 +12,7 @@ const deleteEmployee = async (id) => {
   );
 };
 
+
 const updatePresent = async (employee) => {
   employee.present = employee.present ? false : true;
   return fetch(`/api/employees/${employee._id}`, {
@@ -131,10 +132,11 @@ const EmployeeList = () => {
         />
       </div> 
       <EmployeeTable
-       employees={employees.slice((page - 1) * 10, page * 10)}
-       onClick={updatePresent}
-       sort={sortByName}
-       onDelete={handleDelete} />
+        employees={employees.slice((page - 1) * 10, page * 10)}
+        onClick={updatePresent}
+        sort={sortByName}
+        onDelete={handleDelete}
+      />
       <div className="pagination-btns">
         <button onClick={decrementingPage} className="btns-prev">Prev</button>
         <p>{page}</p>

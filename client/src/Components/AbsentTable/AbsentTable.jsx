@@ -1,7 +1,7 @@
 import "./AbsentTable.css";
 
 const AbsentTable = ({ employees, onClick}) => (
-  <div className="EmployeeTable">
+  <div className="AbsentTable">
     <table>
       <thead>
         <tr>
@@ -14,7 +14,6 @@ const AbsentTable = ({ employees, onClick}) => (
       </thead>
       <tbody>
         {employees.map((employee) => (
-          console.log(employee),
           <tr key={employee._id}>
             <td><input onClick={() => onClick(employee)} type="checkbox" defaultChecked={employee.present} /></td>
             <td>{employee.name}</td>

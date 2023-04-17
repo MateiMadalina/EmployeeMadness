@@ -4,11 +4,13 @@ const EmployeeForm = ({ onSave, disabled, employee, onCancel, equipments, brands
     e.preventDefault();
     const formData = new FormData(e.target);
     const entries = [...formData.entries()];
+    console.log(entries);
     const employee = entries.reduce((acc, entry) => {
       const [k, v] = entry;
       acc[k] = v;
       return acc;
     }, {});
+    console.log(employee);
     return onSave(employee);
   };
 
@@ -73,8 +75,8 @@ const EmployeeForm = ({ onSave, disabled, employee, onCancel, equipments, brands
         <div className="control">
           <label htmlFor="equipment">Equipment:</label>
 
-          <select name="equipment" >
-            <option value="Select an equipment" hidden>
+          <select defaultValue="643867c5ce30b351e7d7cab1" name="equipment" >
+            <option value="Select equipment" hidden>
               Select equipment
             </option>
 
@@ -113,12 +115,11 @@ const EmployeeForm = ({ onSave, disabled, employee, onCancel, equipments, brands
       ) : (
         <div className="control">
           <label htmlFor="brand">Brand:</label>
-          <select name="brand">
-            <option value="Select an brand" hidden>
+          <select defaultValue="643867c5ce30b351e7d7ccd3" name="brand">
+            <option value="Select brand" hidden>
               Select brand
             </option>
             {brands?.map((brand) => (
-              console.log(brand),
               <option value={brand._id} key={brand._id}>
                 {brand.name}
               </option>

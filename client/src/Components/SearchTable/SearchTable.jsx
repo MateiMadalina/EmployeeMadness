@@ -1,8 +1,7 @@
 import "./SearchTable.css";
 
 const SearchTable = ({ employees}) => (
-console.log(employees),
-  <div className="EmployeeTable">
+  <div className="SearchTable">
     <table>
       <thead>
         <tr>
@@ -14,7 +13,6 @@ console.log(employees),
       </thead>
       <tbody>
         {employees.map((employee) => (
-          console.log(employee),
           <tr key={employee._id}>
             <td>{employee.name}</td>
             <td>{employee.level}</td>

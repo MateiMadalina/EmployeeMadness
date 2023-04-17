@@ -1,11 +1,9 @@
-import { useEffect } from "react";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import EmployeeForm from "../Components/EmployeeForm";
 import Loading from "../Components/Loading";
 
 const updateEmployee = async (employee) => {
-  console.log(employee);
   return fetch(`/api/employees/${employee._id}`, {
     method: "PATCH",
     headers: {
@@ -31,23 +29,24 @@ const EmployeeUpdater = () => {
   const { id } = useParams();
   const navigate = useNavigate();
 
-  const [employee, setEmployee] = useState(null);
   const [updateLoading, setUpdateLoading] = useState(false);
-  const [employeeLoading, setEmployeeLoading] = useState(true);
+  const [loading, setLoading] = useState(true);
+  
+  const [employee, setEmployee] = useState(null);
   const [equipments, setEquipments] = useState(null);
   const [brands, setBrands] = useState(null);
 
   useEffect(() => {
-    setEmployeeLoading(true);
+    setLoading(true);
     fetchEmployee(id)
       .then((employee) => {
         setEmployee(employee);
-        setEmployeeLoading(false);
+        setLoading(false);
       });
       fetchEquipments()
       .then((equipments) => {
         setEquipments(equipments);
-        setEmployeeLoading(false);
+        setLoading(false);
       })
       .catch((error) => {
         throw error;
@@ -55,7 +54,7 @@ const EmployeeUpdater = () => {
       fetchBrands()
       .then((brands) => {
         setBrands(brands);
-        setEmployeeLoading(false);
+        setLoading(false);
       })
       .catch((error) => {
         throw error;
@@ -71,7 +70,7 @@ const EmployeeUpdater = () => {
       });
   };
 
-  if (employeeLoading) {
+  if (loading) {
     return <Loading />;
   }
 

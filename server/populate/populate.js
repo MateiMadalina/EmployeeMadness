@@ -3,16 +3,25 @@ Loading the .env file and creates environment variables from it
 */
 require("dotenv").config();
 const mongoose = require("mongoose");
+
+//employees json:
 const names = require("./names.json");
 const levels = require("./levels.json");
 const positions = require("./positions.json");
+
+//equipment json:
 const eqNames = require("./nameEquip.json");
 const eqTypes = require("./typeEquip.json");
-const eqAmounts = require("./amountEquip.json")
+const eqAmounts = require("./amountEquip.json");
+
+//brands json:
+const brandName = require("./brands.json");
+
+//Models:
 const EmployeeModel = require("../db/employee.model");
 const EquipmentModel =require("../db/equipments.model");
 const BrandModel = require("../db/brands.model");
-const brandName = require("./brands.json");
+
 
 const mongoUrl = process.env.MONGO_URL;
 
@@ -21,7 +30,9 @@ if (!mongoUrl) {
   process.exit(1); // exit the current program
 }
 
+
 const pick = (from) => from[Math.floor(Math.random() * (from.length - 0))];
+
 
 const populateBrands = async () => {
   await BrandModel.deleteMany({});
@@ -33,6 +44,7 @@ const populateBrands = async () => {
   await BrandModel.create(...brands);
   console.log("Brands created");
 };
+
 
 const populateEquipments = async () => {
   await EquipmentModel.deleteMany({});
@@ -46,6 +58,7 @@ const populateEquipments = async () => {
   await EquipmentModel.create(...equipments);
   console.log("Equipments created");
 };
+
 
 const populateEmployees = async () => {
   await EmployeeModel.deleteMany({});
@@ -64,6 +77,7 @@ const populateEmployees = async () => {
   await EmployeeModel.create(...employees);
   console.log("Employees created");
 };
+
 
 const main = async () => {
   await mongoose.connect(mongoUrl);

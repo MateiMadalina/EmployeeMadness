@@ -1,6 +1,7 @@
 require("dotenv").config();
 const express = require("express");
 const mongoose = require("mongoose");
+
 const EmployeeModel = require("./db/employee.model");
 const EquipmentModel = require("./db/equipments.model");
 const BrandModel = require("./db/brands.model");
@@ -15,7 +16,55 @@ if (!MONGO_URL) {
 const app = express();
 app.use(express.json());
 
+//Employees Routes
+app.route("/api/employees/")
+.get(async (req, res) => {
+  const employees = await EmployeeModel.find()
+  .populate("equipment brand")
+  .sort({ created: "desc" });
+  return res.json(employees);
+})
+.post(async (req, res, next) => {
+  const employee = req.body;
 
+  try {
+    const saved = await EmployeeModel.create(employee);
+    return res.json(saved);
+  } catch (err) {
+    return next(err);
+  }
+})
+
+app.route("/api/employees/:id")
+.get(async (req, res) => {
+  const employee = await EmployeeModel.findById(req.params.id);
+
+  return res.json(employee);
+})
+.patch(async (req, res, next) => {
+  try {
+    const employee = await EmployeeModel.findOneAndUpdate(
+      { _id: req.params.id },
+      { $set: { ...req.body } },
+      { new: true }
+    );
+    return res.json(employee);
+  } catch (err) {
+    return next(err);
+  }
+})
+.delete(async (req, res, next) => {
+  try {
+    const employee = await EmployeeModel.findById(req.params.id);
+    const deleted = await employee.delete();
+    return res.json(deleted);
+  } catch (err) {
+    return next(err);
+  }
+});
+
+
+//Equipments Routes
 app.route("/api/equipments/")
 .get(async (req, res) => {
   const equipments = await EquipmentModel.find().sort({ created: "desc" });
@@ -60,6 +109,8 @@ app.route("/api/equipments/:id")
   }
 });
 
+
+//Brand Route
 app.route("/api/brands/")
 .get(async (req, res) => {
   const brands = await BrandModel.find().sort({ created: "desc" });
@@ -67,66 +118,23 @@ app.route("/api/brands/")
 })
 
 
+//Search by Name Route
+app.route("/employees/:name")
+.get(async (req, res) => {
+  const name = req.params.name;
+  const employees = await EmployeeModel.find({name: {$regex:new RegExp(name,"i")}});
+  return res.json(employees);
+});
+
+
+//Absent Route
 app.route("/api/absent/")
 .get(async (req, res) => {
   const equipments = await EmployeeModel.find({present:false}).sort({ created: "desc" });
   return res.json(equipments);
 })
 
-app.route("/api/employees/")
-.get(async (req, res) => {
-  const employees = await EmployeeModel.find()
-  .populate("equipment brand")
-  .sort({ created: "desc" });
-  return res.json(employees);
-})
-.post(async (req, res, next) => {
-  const employee = req.body;
 
-  try {
-    const saved = await EmployeeModel.create(employee);
-    return res.json(saved);
-  } catch (err) {
-    return next(err);
-  }
-})
-
-
-app.route("/api/employees/:id")
-.get(async (req, res) => {
-  const employee = await EmployeeModel.findById(req.params.id);
-
-  return res.json(employee);
-})
-.patch(async (req, res, next) => {
-  try {
-    const employee = await EmployeeModel.findOneAndUpdate(
-      { _id: req.params.id },
-      { $set: { ...req.body } },
-      { new: true }
-    );
-    return res.json(employee);
-  } catch (err) {
-    return next(err);
-  }
-})
-.delete(async (req, res, next) => {
-  try {
-    const employee = await EmployeeModel.findById(req.params.id);
-    const deleted = await employee.delete();
-    return res.json(deleted);
-  } catch (err) {
-    return next(err);
-  }
-});
-
-app.route("/employees/:name")
-.get(async (req, res) => {
-  console.log(req.params.name);
-  const name = req.params.name;
-  const employees = await EmployeeModel.find({name: {$regex:new RegExp(name,"i")}});
-  return res.json(employees);
-});
 
 const main = async () => {
   await mongoose.connect(MONGO_URL);

@@ -4,7 +4,6 @@ import Loading from "../Components/Loading";
 import SearchTable from "../Components/SearchTable/SearchTable";
 
 const fetchEmployees = async (name) => {
-    const url = name ? `/employees/${name}` : "/api/employees"
     return fetch(`/employees/${name}`).then((res) => res.json());
 };
 
