@@ -40,6 +40,7 @@ if (!mongoUrl) {
 
 const pick = (from) => from[Math.floor(Math.random() * (from.length - 0))];
 
+
 const populateColors = async () => {
   await ColorModel.deleteMany({});
 
@@ -83,16 +84,22 @@ const populateEmployees = async () => {
   const brands = await BrandModel.find();
   const colors = await ColorModel.find();
 
-  const employees = names.map((name) => ({
+  const employees = names.map((name) => {
+    const randomSalary = Math.floor(Math.random() * 1201);
+    let lvl = "";
+    randomSalary < 101 ? lvl = "Junior" : randomSalary < 301 ? lvl = "Medior" : randomSalary < 401 ? lvl = "Senior" : randomSalary < 801 ? lvl ="Expert" : lvl = "GodLike"
+    
+  return{
     name,
-    level: pick(levels),
+    level: lvl,
     position: pick(positions),
     equipment: pick(equipments),
     brand:pick(brands),
     present:pick([true,false]),
     color:pick(colors),
+    salary: randomSalary,
     readBooks:pick(bookLIst)
-  }));
+  }});
 
   await EmployeeModel.create(...employees);
   console.log("Employees created");

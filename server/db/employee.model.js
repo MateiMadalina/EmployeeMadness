@@ -20,6 +20,7 @@ const EmployeeSchema = new Schema({
     type: mongoose.Schema.Types.ObjectId,
     ref: "Colors"
   },
+  salary: Number,
   readBooks:[{name:String,author:String}],
   created: {
     type: Date,

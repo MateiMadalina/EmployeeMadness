@@ -2,8 +2,17 @@ import {useState} from "react";
 
 const EmployeeForm = ({ onSave, disabled, employee, onCancel, equipments, brands, colors}) => {
 
+const [salary,setSalary] = useState(employee.salary);
 const [newBookName,setNewBookName] = useState("");
 const [newBookAuthor, setNewBookAuthor] = useState("");
+
+let lvl =""
+
+const handleSalary = (e) => {
+  setSalary(e.target.value);
+}
+
+salary < 101 ? lvl = "Junior" : salary < 301 ? lvl = "Medior" : salary < 401 ? lvl = "Senior" : salary < 801 ? lvl ="Expert" : lvl = "GodLike"
 
 const handleNewBookNameChange = (e) => {
   setNewBookName(e.target.value);
@@ -86,9 +95,20 @@ const newBook = {
       <div className="control">
         <label htmlFor="level">Level:</label>
         <input
-          defaultValue={employee ? employee.level : null}
+          value={employee ? lvl : null}
           name="level"
           id="level"
+          readOnly
+        />
+      </div>
+
+      <div className="control">
+        <label htmlFor="salary">Salary:</label>
+        <input
+          defaultValue={employee ? employee.salary : null}
+          name="salary"
+          id="salary"
+          onChange={handleSalary}
         />
       </div>
 
