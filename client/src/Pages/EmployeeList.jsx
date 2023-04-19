@@ -60,8 +60,8 @@ const EmployeeList = () => {
   useEffect(() => {
     fetchEmployees()
       .then((employees) => {
-        setLoading(false);
         if(column === "equipment" || column === "brand" || column === "color"){
+          setLoading(false);
           setEmployees(employees);
           if( sort === "asc"){
             setEmployees((previous) =>
@@ -71,6 +71,7 @@ const EmployeeList = () => {
              [...previous].sort((a, b) => b[column].name.localeCompare(a[column].name)))
            }
         }else if(column === "name" || column === "level" || column === "position"){
+          setLoading(false);
           setEmployees(employees);
           if( sort === "asc"){
             setEmployees((previous) =>
@@ -80,6 +81,7 @@ const EmployeeList = () => {
              [...previous].sort((a, b) => b[column].localeCompare(a[column])))
            }
         }else{
+          setLoading(false);
           setEmployees(employees);
           setCopyEmployees(employees);
         }
