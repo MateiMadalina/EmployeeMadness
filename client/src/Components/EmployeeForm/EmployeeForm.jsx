@@ -1,15 +1,37 @@
+import {useState} from "react";
+
 const EmployeeForm = ({ onSave, disabled, employee, onCancel, equipments, brands, colors}) => {
+
+const [newBookName,setNewBookName] = useState("");
+const [newBookAuthor, setNewBookAuthor] = useState("");
+
+const handleNewBookNameChange = (e) => {
+  setNewBookName(e.target.value);
+}
+
+const handleNewBookAuthorChange = (e) => {
+  setNewBookAuthor(e.target.value);
+}
+
+const newBook = {
+  name : newBookName,
+  author: newBookAuthor
+}
+
+  const updatedReadBooks = [...employee.readBooks, newBook];
+
   const onSubmit = (e) => {
     e.preventDefault();
     const formData = new FormData(e.target);
     const entries = [...formData.entries()];
-    console.log(entries);
     const employee = entries.reduce((acc, entry) => {
       const [k, v] = entry;
       acc[k] = v;
       return acc;
     }, {});
-    console.log(employee);
+
+    if(newBookName !== "" && newBookAuthor !== "") employee.readBooks = updatedReadBooks;
+
     return onSave(employee);
   };
 
@@ -18,6 +40,39 @@ const EmployeeForm = ({ onSave, disabled, employee, onCancel, equipments, brands
       {employee && (
         <input type="hidden" name="_id" defaultValue={employee._id} />
       )}
+
+      <div className="control">
+      <label htmlFor="readBooks">List of books read:</label>
+      <ol>
+        {employee?.readBooks.map((book,index) => (
+          <li key={index}>
+            {book.name} <strong>by</strong> {book.author}
+          </li>
+        ))}
+      </ol>
+      </div>
+
+      <div className="control">
+        <label htmlFor="newBookName">New book name:</label>
+        <input
+          type="text"
+          id="newBookName"
+          name="newBookName"
+          value={newBookName}
+          onChange={handleNewBookNameChange}
+        />
+      </div>
+
+      <div className="control">
+        <label htmlFor="newBookAuthor">New book author:</label>
+        <input
+          type="text"
+          id="newBookAuthor"
+          name="newBookAuthor"
+          value={newBookAuthor}
+          onChange={handleNewBookAuthorChange}
+        />
+      </div>
 
       <div className="control">
         <label htmlFor="name">Name:</label>
@@ -46,8 +101,7 @@ const EmployeeForm = ({ onSave, disabled, employee, onCancel, equipments, brands
         />
       </div>
 
- 
-        <div className="control">
+      <div className="control">
           <label htmlFor="equipment">Equipment:</label>
           <select name="equipment">
             <option value="" selected="true" disabled="disabled">
@@ -63,9 +117,9 @@ const EmployeeForm = ({ onSave, disabled, employee, onCancel, equipments, brands
                 </option>
               ))}
           </select>
-        </div>
+      </div>
 
-        <div className="control">
+      <div className="control">
           <label htmlFor="brand">Brand:</label>
           <select name="brand">
             <option value="" selected="true" disabled="disabled">
@@ -81,9 +135,9 @@ const EmployeeForm = ({ onSave, disabled, employee, onCancel, equipments, brands
                 </option>
               ))}
           </select>
-        </div>
+      </div>
 
-        <div className="control">
+      <div className="control">
           <label htmlFor="color">Color:</label>
           <select name="color">
             <option value="" selected="true" disabled="disabled">
@@ -99,8 +153,7 @@ const EmployeeForm = ({ onSave, disabled, employee, onCancel, equipments, brands
                 </option>
               ))}
           </select>
-        </div>
-
+      </div>
 
 
       <div className="buttons">

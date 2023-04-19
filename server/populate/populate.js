@@ -20,6 +20,9 @@ const brandName = require("./brands.json");
 //colors json:
 const colorsList = require("./colors.json");
 
+//bookd json:
+const bookLIst = require("./books.json");
+
 //Models:
 const EmployeeModel = require("../db/employee.model");
 const EquipmentModel =require("../db/equipments.model");
@@ -87,8 +90,8 @@ const populateEmployees = async () => {
     equipment: pick(equipments),
     brand:pick(brands),
     present:pick([true,false]),
-    color:pick(colors)
-
+    color:pick(colors),
+    readBooks:pick(bookLIst)
   }));
 
   await EmployeeModel.create(...employees);

@@ -20,6 +20,7 @@ const EmployeeSchema = new Schema({
     type: mongoose.Schema.Types.ObjectId,
     ref: "Colors"
   },
+  readBooks:[{name:String,author:String}],
   created: {
     type: Date,
     default: Date.now,
