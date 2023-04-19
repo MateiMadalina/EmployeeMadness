@@ -67,6 +67,11 @@ const router = createBrowserRouter([
         path: "/search/:name",
         element: <SearchEmployee />,
       },
+      {
+        path: "/employees/:column/:sort",
+        element: <EmployeeList />,
+      },
+      
 
 
     ],

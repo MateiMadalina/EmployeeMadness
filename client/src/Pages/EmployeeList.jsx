@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import Loading from "../Components/Loading";
 import EmployeeTable from "../Components/EmployeeTable";
+import { useNavigate, useParams} from "react-router-dom";
 
 const fetchEmployees = async () => {
   return fetch("/api/employees").then((res) => res.json());
@@ -26,11 +27,14 @@ const updatePresent = async (employee) => {
 
 const EmployeeList = () => {
   const [loading, setLoading] = useState(true);
-  const [employees, setEmployees] = useState(null);
+  const [employees, setEmployees] = useState([]);
   const [inputText, setInputText] = useState("");
   const [copyEmployees, setCopyEmployees] = useState(null);
   const [page, setPage] = useState(1);
   const [index,setIndex] =useState(0);
+
+  const {column, sort} = useParams();
+  const navigate = useNavigate();
 
   const incrementPage = () => {
     if (page * 10 >= employees.length) return;
@@ -57,10 +61,30 @@ const EmployeeList = () => {
     fetchEmployees()
       .then((employees) => {
         setLoading(false);
-        setEmployees(employees);
-        setCopyEmployees(employees);
+        if(column === "equipment" || column === "brand" || column === "color"){
+          setEmployees(employees);
+          if( sort === "asc"){
+            setEmployees((previous) =>
+            [...previous].sort((a, b) => a[column].name.localeCompare(b[column].name)))
+           } else if( sort === "desc"){
+            setEmployees((previous) =>
+             [...previous].sort((a, b) => b[column].name.localeCompare(a[column].name)))
+           }
+        }else if(column === "name" || column === "level" || column === "position"){
+          setEmployees(employees);
+          if( sort === "asc"){
+            setEmployees((previous) =>
+            [...previous].sort((a, b) => a[column].localeCompare(b[column])))
+           } else if( sort === "desc"){
+            setEmployees((previous) =>
+             [...previous].sort((a, b) => b[column].localeCompare(a[column])))
+           }
+        }else{
+          setEmployees(employees);
+          setCopyEmployees(employees);
+        }
       })
-  }, []);
+  }, [column,sort]);
 
   if (loading) {
     return <Loading />;
@@ -100,18 +124,33 @@ const EmployeeList = () => {
     }
   }
 
- 
-  const sortByName = () => {
+  const sortByOriginal = (table) => {
    if(index % 2 === 0 ){
+    navigate(`/employees/${table}/asc`);
     setIndex(index + 1);
     setEmployees((previous) =>
-    [...previous].sort((a, b) => a.name.localeCompare(b.name)))
+    [...previous].sort((a, b) => a[table].localeCompare(b[table])))
    } else {
+    navigate(`/employees/${table}/desc`);
     setIndex(index + 1);
      setEmployees((previous) =>
-     [...previous].sort((a, b) => b.name.localeCompare(a.name)))
+     [...previous].sort((a, b) => b[table].localeCompare(a[table])))
    }
   }
+
+  const sortByRef = (table) => {
+    if(index % 2 === 0 ){
+     navigate(`/employees/${table}/asc`);
+     setIndex(index + 1);
+     setEmployees((previous) =>
+     [...previous].sort((a, b) => a[table].name.localeCompare(b[table].name)))
+    } else {
+     navigate(`/employees/${table}/desc`);
+     setIndex(index + 1);
+      setEmployees((previous) =>
+      [...previous].sort((a, b) => b[table].name.localeCompare(a[table].name)))
+    }
+   }
   
   return(
     <div>
@@ -134,7 +173,8 @@ const EmployeeList = () => {
       <EmployeeTable
         employees={employees.slice((page - 1) * 10, page * 10)}
         onClick={updatePresent}
-        sort={sortByName}
+        sort={sortByOriginal}
+        sortRef={sortByRef}
         onDelete={handleDelete}
       />
       <div className="pagination-btns">

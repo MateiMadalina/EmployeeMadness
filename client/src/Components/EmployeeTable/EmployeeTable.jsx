@@ -1,19 +1,19 @@
 import { Link } from "react-router-dom";
 import "./EmployeeTable.css";
 
-const EmployeeTable = ({ employees, onClick, onDelete, sort }) => (
+const EmployeeTable = ({ employees, onClick, onDelete, sort, sortRef }) => (
 
   <div className="EmployeeTable">
     <table>
       <thead>
         <tr>
           <th>Present</th>
-          <th onClick={() => sort()}>Name</th>
-          <th>Level</th>
-          <th>Position</th>
-          <th>Equipment</th>
-          <th>Brand</th>
-          <th>Favorite color</th>
+          <th onClick={() => sort("name")}>Name</th>
+          <th onClick={() => sort("level")}>Level</th>
+          <th onClick={() => sort("position")}>Position</th>
+          <th onClick={() => sortRef("equipment")}>Equipment</th>
+          <th onClick={() => sortRef("brand")}>Brand</th>
+          <th onClick={() => sortRef("color")}>Favorite color</th>
           <th />
         </tr>
       </thead>
