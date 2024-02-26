@@ -1,19 +1,19 @@
-# Employee Data
+# Employee Madness
 
 ## Server side
 
 ### Install dependencies
-```bash
+```
 cd ./server
 npm install
 ```
 
 ### .env file
-Copy the .env.sample as .env and fill up the environment variable for your personal mongodb connecttion url.
+Add the .env file and fill up the environment variable for your personal mongodb connecttion url.
 
 ### Prepare the database
 
-```bash
+```
 cd ./server
 npm run populate
 ```
@@ -22,7 +22,7 @@ npm run populate
 
 ### Running the code
 
-```bash
+```
 cd ./server
 npm run dev
 ```
@@ -39,7 +39,7 @@ If you like to try the endpoints of the rest api, you can check the test.http fi
 
 ### Install dependencies
 
-```bash
+```
 cd ./client
 npm install
 ```
@@ -50,9 +50,15 @@ Watch for the port of your rest api. By default it will bind on port 8080 and th
 
 ### Runnig the code
 
-```bash
+```
 cd ./client
 npm start
 ```
 
 And the create-react-app react-scripts package will start your frontend on the 3000 port and you can visit the http://localhost:3000 on your preferred browser.
+
+## Demo
+
+https://github.com/MateiMadalina/EmployeeMadness/assets/116349352/520f0d66-36ad-4577-a7e9-ca57b128bbb8
+
+
