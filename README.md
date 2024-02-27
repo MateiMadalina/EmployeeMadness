@@ -1,5 +1,16 @@
 # Employee Madness
 
+### Technologies Used:
+
+I utilized the following technologies:
+
+- **Node.js**: A runtime environment for server-side JavaScript execution.
+- **Express.js**: Backend development, creating APIs and database interactions.
+- **MongoDbCompass**: To store some information in the database.
+- **React**: A popular web application library known for its effectiveness in creating interactive and dynamic UI components.
+- **CSS**: To customize the design of our application.
+
+
 ## Server side
 
 ### Install dependencies
